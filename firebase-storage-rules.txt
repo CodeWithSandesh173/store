@@ -1,0 +1,12 @@
+// Firebase Storage Rules for Dev Sandesh Store
+// Copy these rules to Firebase Console -> Storage -> Rules
+
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Allow anyone to upload payment proofs (max 2MB)
+    match /payment_proofs/{allPaths=**} {
+      allow read, write: if request.resource.size < 2 * 1024 * 1024;
+    }
+  }
+}
